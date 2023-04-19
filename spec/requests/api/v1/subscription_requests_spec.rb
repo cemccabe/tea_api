@@ -11,7 +11,7 @@ RSpec.describe 'Subscription Requests API', type: :request do
           title: Faker::Sports::Basketball.team,
           price: Faker::Number.decimal(l_digits: 2),
           status: 1,
-          frequency: Faker::Number.between(from: 1, to: 3),
+          frequency: Faker::Number.between(from: 0, to: 2),
           tea_id: tea.id,
           customer_id: customer.id
         }
@@ -19,7 +19,7 @@ RSpec.describe 'Subscription Requests API', type: :request do
         headers = { 'CONTENT_TYPE' => 'application/json' }
         post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription_params)
         response_body = JSON.parse(response.body, symbolize_names: true)
-        
+
         expect(response).to be_successful
         expect(response.status).to eq(201)
       end
