@@ -19,7 +19,7 @@ RSpec.describe 'Subscription Requests API', type: :request do
         headers = { 'CONTENT_TYPE' => 'application/json' }
         post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription_params)
         response_body = JSON.parse(response.body, symbolize_names: true)
-
+        
         expect(response).to be_successful
         expect(response.status).to eq(201)
       end
