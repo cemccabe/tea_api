@@ -7,6 +7,6 @@ class Subscription < ApplicationRecord
                         :status,
                         :frequency
 
-  enum status: { inactive: 0, active: 1 }
-  enum frequency: { weekly: 1, monthly: 2, yearly: 3}
+  enum status: [:inactive, :active]
+  enum frequency: [:weekly, :monthly, :yearly]
 end
