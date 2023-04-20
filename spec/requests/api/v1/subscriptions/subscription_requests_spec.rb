@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Subscription Requests API', type: :request do
-  describe 'POST /api/v1/subscription_requests' do
+  describe 'POST Subscription Requests' do
     let!(:customer) { create(:customer) }
     let!(:tea) { create(:tea) }
 
