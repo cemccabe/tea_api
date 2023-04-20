@@ -13,7 +13,7 @@ RSpec.describe 'Subscription Requests API', type: :request do
         subscription_params = {
           title: Faker::Sports::Basketball.team,
           price: Faker::Number.decimal(l_digits: 2),
-          status: 0,
+          status: 1,
           frequency: Faker::Number.between(from: 0, to: 2),
           tea_id: tea.id,
           customer_id: customer.id
@@ -43,6 +43,27 @@ RSpec.describe 'Subscription Requests API', type: :request do
         expect(subscription.frequency).to eq(enum_frequency[subscription_params[:frequency]])
         expect(subscription.tea_id).to eq(subscription_params[:tea_id])
         expect(subscription.customer_id).to eq(subscription_params[:customer_id])
+      end
+    end
+  end
+
+  describe 'PATCH Subscription Requests' do
+    let!(:customer) { create(:customer) }
+    let!(:tea) { create(:tea) }
+    let!(:subscription) { create(:subscription, status: 1, customer_id: customer.id, tea_id: tea.id) }
+
+    describe 'Happy Path' do
+      it 'updates a subscription status' do
+        subscription_params = {
+          status: 0
+        }
+
+        headers = { 'CONTENT_TYPE' => 'application/json' }
+        patch "/api/v1/subscriptions/#{subscription.id}", headers: headers, params: JSON.generate(subscription_params)
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response).to be_successful
+        expect(response.status).to eq(200)
       end
     end
   end
