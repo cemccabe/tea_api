@@ -64,6 +64,12 @@ RSpec.describe 'Subscription Requests API', type: :request do
 
         expect(response).to be_successful
         expect(response.status).to eq(200)
+
+        expect(response_body[:data][:attributes][:status]).to eq('inactive')
+
+        subscription.reload
+
+        expect(subscription.status).to eq('inactive')
       end
     end
   end
