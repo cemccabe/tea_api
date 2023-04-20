@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Subscription Requests API', type: :request do
-  describe 'POST /api/v1/subscription_requests' do
+  describe 'POST Subscription Requests' do
     let!(:customer) { create(:customer) }
     let!(:tea) { create(:tea) }
 
@@ -43,6 +43,32 @@ RSpec.describe 'Subscription Requests API', type: :request do
         expect(subscription.frequency).to eq(enum_frequency[subscription_params[:frequency]])
         expect(subscription.tea_id).to eq(subscription_params[:tea_id])
         expect(subscription.customer_id).to eq(subscription_params[:customer_id])
+      end
+    end
+
+    describe 'Sad Path' do
+      it 'returns an error if customer does not exist' do
+        subscription_params = {
+          title: Faker::Sports::Basketball.team,
+          price: Faker::Number.decimal(l_digits: 2),
+          status: 1,
+          frequency: Faker::Number.between(from: 0, to: 2),
+          tea_id: tea.id,
+          customer_id: nil
+        }
+
+        headers = { 'CONTENT_TYPE' => 'application/json' }
+        post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription_params)
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(400)
+
+        expect(response_body).to be_a(Hash)
+        expect(response_body).to have_key(:errors)
+        
+        expect(response_body[:errors]).to be_an(Array)
+        expect(response_body[:errors].first).to eq("Customer must exist")
       end
     end
   end
