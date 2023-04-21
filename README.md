@@ -72,12 +72,12 @@ POST /api/v1/customers
 <br>
 
 Headers:<br>
-```http
+```
 { "CONTENT_TYPE" => "application/json", 'ACCEPT' => 'application/json' }
 ```
 
 Body:<br>
-```http
+```
 { 
   first_name: "FIRST NAME",
   last_name: "LAST NAME",
@@ -117,12 +117,12 @@ POST /api/v1/teas
 <br>
 
 Headers:<br>
-```http
+```
 { "CONTENT_TYPE" => "application/json", 'ACCEPT' => 'application/json' }
 ```
 
 Body:<br>
-```http
+```
 { 
   title: "TEA TITLE",
   description: "DESCRIPTION",
@@ -162,12 +162,12 @@ POST /api/v1/subscriptions
 <br>
 
 Headers:<br>
-```http
+```
 { "CONTENT_TYPE" => "application/json", 'ACCEPT' => 'application/json' }
 ```
 
 Body:<br>
-```http
+```
 { 
   title: "SUBSCRIPTION TITLE",
   price: 20.25,
@@ -213,12 +213,12 @@ PATCH /api/v1/subscriptions/<SUBSCRIPTION ID>
 <br>
 
 Headers:<br>
-```http
+```
 { "CONTENT_TYPE" => "application/json" }
 ```
 
 Body:<br>
-```http
+```
 { 
   status: 0
 }
