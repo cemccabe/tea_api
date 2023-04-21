@@ -16,6 +16,18 @@ RSpec.describe 'Tea Requests API', type: :request do
 
       expect(response).to be_successful
       expect(response.status).to eq(201)
+
+      expect(response_body[:data][:attributes][:title]).to eq(tea_params[:title])
+      expect(response_body[:data][:attributes][:description]).to eq(tea_params[:description])
+      expect(response_body[:data][:attributes][:temperature]).to eq(tea_params[:temperature])
+      expect(response_body[:data][:attributes][:brew_time]).to eq(tea_params[:brew_time])
+
+      tea = Tea.last
+
+      expect(tea.title).to eq(tea_params[:title])
+      expect(tea.description).to eq(tea_params[:description])
+      expect(tea.temperature).to eq(tea_params[:temperature])
+      expect(tea.brew_time).to eq(tea_params[:brew_time])
     end
   end
 end
